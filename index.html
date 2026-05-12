@@ -6,14 +6,15 @@
     <title>Tracker Made Easy | Vysakh</title>
     <style>
         :root {
-            --bg: #0a0a0c;
-            --glass: rgba(255, 255, 255, 0.08);
+            /* Changed to a professional, Boots-inspired blue background */
+            --bg: #001f5b; 
+            --glass: rgba(255, 255, 255, 0.1);
             --accent: #00d1ff;
             --success: #00ff88;
         }
 
         * { box-sizing: border-box; margin: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background: var(--bg); color: white; overflow: hidden; }
+        body { background: var(--bg); color: white; overflow: hidden; height: 100vh; }
 
         /* --- Startup Window & Animation --- */
         #splash {
@@ -22,46 +23,68 @@
             z-index: 1000; transition: opacity 0.8s ease;
         }
 
-        .loader-ring {
-            width: 80px; height: 80px; border: 3px solid var(--glass);
-            border-top: 3px solid var(--accent); border-radius: 50%;
-            animation: spin 1s linear infinite;
+        /* CSS-created Boots Logo */
+        .boots-logo {
+            background-color: white;
+            color: var(--bg);
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 3.5rem;
+            font-weight: bold;
+            padding: 15px 45px;
+            border-radius: 50% / 100%; /* Creates the classic oval shape */
+            margin-bottom: 20px;
+            /* Fade in and out animation */
+            animation: pulseFade 1.5s ease-in-out infinite;
         }
 
-        @keyframes spin { 100% { transform: rotate(3600deg); } }
+        @keyframes pulseFade {
+            0%, 100% { opacity: 0.3; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
 
-        /* --- Branding & Captions --- */
-        .branding-text { margin-top: 20px; text-align: center; }
+        /* Content fade-in animation */
+        .branding-text { 
+            text-align: center; 
+            opacity: 0;
+            animation: fadeInText 1s ease-out 0.5s forwards;
+        }
+        
+        @keyframes fadeInText {
+            to { opacity: 1; }
+        }
+
         .branding-text h1 { font-size: 1.5rem; letter-spacing: 2px; }
-        .branding-text p { font-size: 0.8rem; opacity: 0.6; margin-top: 5px; }
+        .branding-text p { font-size: 0.8rem; opacity: 0.8; margin-top: 5px; color: var(--accent); }
 
         /* --- Main Layout --- */
         #main-app { padding: 15px; height: 100vh; overflow-y: auto; display: none; }
         
         .glass-card {
             background: var(--glass); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 18px; padding: 15px; margin-bottom: 12px;
         }
 
         /* --- Grid Entries: Reduced & Neat --- */
         .entry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         
-        .field-box { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; }
+        .field-box { background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px; }
         .field-box label { display: block; font-size: 0.65rem; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
         .field-box input { width: 100%; background: transparent; border: none; color: white; font-size: 1.1rem; outline: none; }
+        .field-box input::placeholder { color: rgba(255,255,255,0.4); }
 
         /* --- Checklist Accountability --- */
         .check-item { 
             display: flex; align-items: center; justify-content: space-between;
-            padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .check-item:last-child { border: none; }
 
         /* --- Sticky Footer Signature --- */
         .footer-sig {
             text-align: center; font-size: 0.7rem; padding: 20px 0;
-            opacity: 0.5; letter-spacing: 1px;
+            opacity: 0.6; letter-spacing: 1px;
         }
     </style>
 </head>
@@ -69,13 +92,16 @@
 
     <!-- Starting Window Pause -->
     <div id="splash">
-        <div class="loader-ring"></div>
+        <!-- Bigger icon/logo fading in and out -->
+        <div class="boots-logo">Boots</div>
+        <!-- Branding content fading in -->
         <div class="branding-text">
             <h1>TRACKER MADE EASY</h1>
             <p>Created by Vysakh (Pharmacist)</p>
         </div>
     </div>
 
+    <!-- Main Content (Unchanged) -->
     <div id="main-app">
         <!-- Performance Section -->
         <div class="glass-card">
@@ -101,7 +127,7 @@
 
         <!-- Reduced Accountability Checklist -->
         <div class="glass-card">
-            <h4 style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.7;">SHIFT ACCOUNTABILITY</h4>
+            <h4 style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.8;">SHIFT ACCOUNTABILITY</h4>
             <div class="check-item">
                 <span>Safe & E-Key Verified</span>
                 <input type="checkbox">
@@ -120,7 +146,7 @@
             </div>
         </div>
 
-        <button class="glass-card" style="width: 100%; color: var(--accent); font-weight: bold; cursor: pointer;">
+        <button class="glass-card" style="width: 100%; color: var(--accent); font-weight: bold; cursor: pointer; border: 1px solid var(--accent); background: rgba(0, 209, 255, 0.1);">
             SYNC DATA TO CLOUD
         </button>
 
@@ -140,7 +166,7 @@
                     splash.style.display = 'none';
                     app.style.display = 'block';
                 }, 800);
-            }, 2500); // 2.5 second pause for branding
+            }, 3000); // 3 second pause to allow the animations to loop and play fully
         });
 
         // Auto-save logic
