@@ -1,5 +1,10 @@
-# Boots Tracker Made Easy — Embedded Sales History
+# Boots Tracker Made Easy — Calculator + Old Entry Edit
 
-Includes embedded sales history from supplied weekly screenshots, enhanced history calendar, animated numbers, target checks, emoji status, weekly graph, rota/hours check, and admin target settings.
+Added:
+- Quick KPI field at top of Sales page
+- Old date selector/edit
+- Mini calculator inside every field
+- Camera/upload image reference per selected date
+- Saved old entries update History calendar
 
-Admin password: 331356
+Example: type 250+130+90 then press Enter or = Total.
